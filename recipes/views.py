@@ -124,3 +124,40 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+        
+        
+        from rest_framework import viewsets, status
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import action
+from .models import Favorite, Recipe
+from .serializers import FavoriteSerializer
+
+class FavoriteViewSet(viewsets.ModelViewSet):
+    serializer_class = FavoriteSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        # Only show the logged-in user's favorites
+        return Favorite.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        # Automatically set the user to the logged-in user
+        serializer.save(user=self.request.user)
+
+    @action(detail=True, methods=['post', 'delete'])
+    def toggle(self, request, pk=None):
+        try:
+            recipe = Recipe.objects.get(pk=pk)
+        except Recipe.DoesNotExist:
+            return Response({'detail': 'Recipe not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+        favorite, created = Favorite.objects.get_or_create(user=request.user, recipe=recipe)
+
+        if not created:
+            # If it already existed, it means we are "un-favoriting"
+            favorite.delete()
+            return Response({'detail': 'Recipe removed from favorites.'}, status=status.HTTP_204_NO_CONTENT)
+        else:
+            # If it was just created, it means we are "favoriting"
+            return Response({'detail': 'Recipe added to favorites.'}, status=status.HTTP_201_CREATED)

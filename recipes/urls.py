@@ -6,7 +6,10 @@ router = DefaultRouter()
 router.register(r'recipes', RecipeViewSet)
 router.register(r'categories', CategoryViewSet)
 router.register(r'ingredients', IngredientViewSet)
+router = DefaultRouter()
+router.register(r'favorites', FavoriteViewSet, basename='favorite')
 
 urlpatterns = [
     path('', include(router.urls)),
 ]
+

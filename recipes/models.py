@@ -40,3 +40,20 @@ class Recipe(models.Model):
 
     def _str_(self):
         return self.title
+    
+    from django.db import models
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+class Favorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favorites')
+    recipe = models.ForeignKey('Recipe', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'recipe')
+        ordering = ['-created_at']
+
+    def _str_(self):
+        return f"{self.user.username} favorites {self.recipe.title}"
