@@ -1,0 +1,18 @@
+### Register a New User
+POST http://127.0.0.1:8000/api/register/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "Ishola",
+    "email": "oloruntonoah@gmail.com",
+    "password": "Temitayo123#"
+}
+
+### Log in and get an authentication token
+POST http://127.0.0.1:8000/admin/login/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "Ishola",
+    "password": "Temitayo123#"
+}
