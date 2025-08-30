@@ -20,7 +20,7 @@ Content-Type: application/json
 ### Create a new category
 POST http://127.0.0.1:8000/api/categories/ HTTP/1.1
 Content-Type: application/json
-Authorization: Token 784d650b7a42a26034547bbd4c71bc7c37412e90
+Authorization: Token 
 
 {
     "name": "Dinner"
@@ -29,7 +29,7 @@ Authorization: Token 784d650b7a42a26034547bbd4c71bc7c37412e90
 ### Create a new recipe
 POST http://127.0.0.1:8000/api/recipes/ HTTP/1.1
 Content-Type: application/json
-Authorization: Token 784d650b7a42a26034547bbd4c71bc7c37412e90
+Authorization: Token 
 
 {
     "title": "My New Recipe",
