@@ -1,0 +1,42 @@
+### Register a New User
+POST http://127.0.0.1:8000/api/register/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "Taiwo",
+    "email": "oloruntonoah@gmail.com",
+    "password": "Temitayo123#"
+}
+
+### Log in and get an authentication token
+POST http://127.0.0.1:8000/api/login/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "Taiwo",
+    "password": "Temitayo123#"
+}
+
+### Create a new category
+POST http://127.0.0.1:8000/api/categories/ HTTP/1.1
+Content-Type: application/json
+Authorization: Token 784d650b7a42a26034547bbd4c71bc7c37412e90
+
+{
+    "name": "Dinner"
+}
+
+### Create a new recipe
+POST http://127.0.0.1:8000/api/recipes/ HTTP/1.1
+Content-Type: application/json
+Authorization: Token 784d650b7a42a26034547bbd4c71bc7c37412e90
+
+{
+    "title": "My New Recipe",
+    "description": "A delicious and easy recipe.",
+    "prep_time": 30,
+    "cook_time": 45,
+    "servings": 4,
+    "ingredients": [1, 2],
+    "category": 1
+}
